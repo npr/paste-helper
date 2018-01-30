@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Paste document title</title>
+    </head>
+    <body>
+        <input type="text" id='inputField' readonly placeholder="Paste Here" />
+        <div id='htmlValue'></div>
+        <script src="/reload/reload.js"></script>
+        <script>
+            function htmlEntities(str) {
+                return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+            }
+
+            function handlePaste (e) {
+                const clip = e.clipboardData || window.clipboardData;
+                for (var key in clip.types){
+                    console.log("%c" + clip.types[key] , 'font-weight: bold; color: #cc22cc; font-size: 12px');
+                    console.log(clip.getData(clip.types[key]));
+                }
+
+                // document.getElementById('htmlValue').innerHTML = htmlEntities(clip.getData("text/html"));
+                // console.log(clip.getData("text/html"));
+
+                e.preventDefault();
+            }
+
+            document.getElementById('inputField').addEventListener('paste', handlePaste);
+        </script>
+    </body>
+</html>
